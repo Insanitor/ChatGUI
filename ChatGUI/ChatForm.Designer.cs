@@ -57,7 +57,7 @@
             this.SendButton.Location = new System.Drawing.Point(602, 406);
             this.SendButton.Name = "SendButton";
             this.SendButton.Size = new System.Drawing.Size(66, 29);
-            this.SendButton.TabIndex = 19;
+            this.SendButton.TabIndex = 9;
             this.SendButton.Text = "Send";
             this.SendButton.UseVisualStyleBackColor = true;
             this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
@@ -67,7 +67,7 @@
             this.ConnectButton.Location = new System.Drawing.Point(11, 58);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(75, 23);
-            this.ConnectButton.TabIndex = 20;
+            this.ConnectButton.TabIndex = 3;
             this.ConnectButton.Text = "Connect";
             this.ConnectButton.UseVisualStyleBackColor = true;
             this.ConnectButton.Click += new System.EventHandler(this.ConnectButton_Click);
@@ -78,14 +78,16 @@
             this.MessageBox.Location = new System.Drawing.Point(223, 406);
             this.MessageBox.Name = "MessageBox";
             this.MessageBox.Size = new System.Drawing.Size(373, 29);
-            this.MessageBox.TabIndex = 18;
+            this.MessageBox.TabIndex = 8;
             // 
             // ChatTextBox
             // 
             this.ChatTextBox.Location = new System.Drawing.Point(223, 9);
             this.ChatTextBox.Name = "ChatTextBox";
+            this.ChatTextBox.ReadOnly = true;
             this.ChatTextBox.Size = new System.Drawing.Size(447, 391);
             this.ChatTextBox.TabIndex = 17;
+            this.ChatTextBox.TabStop = false;
             this.ChatTextBox.Text = "";
             // 
             // label4
@@ -154,8 +156,9 @@
             this.FromIpBox.Location = new System.Drawing.Point(117, 199);
             this.FromIpBox.Name = "FromIpBox";
             this.FromIpBox.Size = new System.Drawing.Size(100, 22);
-            this.FromIpBox.TabIndex = 5;
+            this.FromIpBox.TabIndex = 7;
             this.FromIpBox.Text = "172.0.0.10";
+            this.FromIpBox.TextChanged += new System.EventHandler(this.FromIpBox_TextChanged);
             // 
             // ToIpBox
             // 
@@ -163,7 +166,7 @@
             this.ToIpBox.Location = new System.Drawing.Point(117, 135);
             this.ToIpBox.Name = "ToIpBox";
             this.ToIpBox.Size = new System.Drawing.Size(100, 22);
-            this.ToIpBox.TabIndex = 7;
+            this.ToIpBox.TabIndex = 5;
             this.ToIpBox.Text = "172.0.0.10";
             // 
             // FromNameBox
@@ -172,7 +175,7 @@
             this.FromNameBox.Location = new System.Drawing.Point(11, 199);
             this.FromNameBox.Name = "FromNameBox";
             this.FromNameBox.Size = new System.Drawing.Size(100, 22);
-            this.FromNameBox.TabIndex = 8;
+            this.FromNameBox.TabIndex = 6;
             this.FromNameBox.Text = "FromDennis";
             // 
             // ServerIpBox
@@ -180,7 +183,7 @@
             this.ServerIpBox.Location = new System.Drawing.Point(11, 31);
             this.ServerIpBox.Name = "ServerIpBox";
             this.ServerIpBox.Size = new System.Drawing.Size(100, 20);
-            this.ServerIpBox.TabIndex = 9;
+            this.ServerIpBox.TabIndex = 1;
             this.ServerIpBox.Text = "172.0.0.10";
             // 
             // ToNameBox
@@ -189,7 +192,7 @@
             this.ToNameBox.Location = new System.Drawing.Point(11, 135);
             this.ToNameBox.Name = "ToNameBox";
             this.ToNameBox.Size = new System.Drawing.Size(100, 22);
-            this.ToNameBox.TabIndex = 10;
+            this.ToNameBox.TabIndex = 4;
             this.ToNameBox.Text = "ToDennis";
             // 
             // ServerPortBox
@@ -207,7 +210,7 @@
             0});
             this.ServerPortBox.Name = "ServerPortBox";
             this.ServerPortBox.Size = new System.Drawing.Size(100, 20);
-            this.ServerPortBox.TabIndex = 21;
+            this.ServerPortBox.TabIndex = 2;
             this.ServerPortBox.Value = new decimal(new int[] {
             8890,
             0,

@@ -73,5 +73,10 @@ namespace ChatGUI
         {
 
         }
+
+        private void FromIpBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
