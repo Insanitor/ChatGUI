@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
             this.SendButton = new System.Windows.Forms.Button();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.MessageBox = new System.Windows.Forms.TextBox();
@@ -255,6 +256,7 @@
             this.Controls.Add(this.FromNameBox);
             this.Controls.Add(this.ServerIpBox);
             this.Controls.Add(this.ToNameBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChatForm";
             this.Text = "Chat Server GUI";
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).EndInit();

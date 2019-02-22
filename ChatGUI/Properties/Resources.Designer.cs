@@ -63,16 +63,6 @@ namespace ChatGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap ChatImage {
-            get {
-                object obj = ResourceManager.GetObject("ChatImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap HipChatIcon {
             get {
                 object obj = ResourceManager.GetObject("HipChatIcon", resourceCulture);
