@@ -1,14 +1,14 @@
-﻿namespace ChatGUI.MessageItems
+﻿namespace ChatGUI.Models.MessageItems
 {
-    public class To
+    public class User
     {
-        public To()
+        public User()
         {
             Name = Name;
             Ip = Ip;
         }
 
-        public To(string name, string ip)
+        public User(string name, string ip)
         {
             Name = name;
             Ip = ip;

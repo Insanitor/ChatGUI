@@ -1,31 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using ChatGUI.Models;
+using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ChatGUI.MessageItems;
 
 namespace ChatGUI
 {
-    public partial class Form1 : Form
+    public partial class ChatForm : Form
     {
         public static string chatMessage;
-        Form1 me;
+        ChatForm me;
         AsyncClient client;
-        public Form1()
+        public ChatForm()
         {
             InitializeComponent();
             me = this;
-        }
-
-        private void textBox5_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)
@@ -53,22 +41,37 @@ namespace ChatGUI
         {
             if (client != null)
             {
-                client.SendEncrypted(new MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+                client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
             }
         }
 
         public void SetChatBox(string message)
         {
+            //If the method requires Controls from
+            //the current thread, this thread will
+            //execute it instead of the outside caller
             if (InvokeRequired)
             {
                 this.Invoke((MethodInvoker)delegate () { me.SetChatBox(message); });
                 return;
             }
-            me.ChatTextBox.Text += message + "\n";
+            if (message != null && message != "")
+                me.ChatTextBox.Text += message + "\n";
         }
 
         private void ServerPortBox_ValueChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

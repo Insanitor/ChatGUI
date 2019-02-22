@@ -45,24 +45,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsyncClient.cs" />
-    <Compile Include="CryptoTool.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Models\AsyncClient.cs" />
+    <Compile Include="Models\CryptoTool.cs" />
+    <Compile Include="ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ChatForm.Designer.cs">
+      <DependentUpon>ChatForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageItems\From.cs" />
-    <Compile Include="MessageItems\Mb.cs" />
-    <Compile Include="MessageItems\Message.cs" />
+    <Compile Include="Models\MessageItems\From.cs" />
+    <Compile Include="Models\MessageItems\Mb.cs" />
+    <Compile Include="Models\MessageItems\Message.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MessageItems\StatusMessage.cs" />
-    <Compile Include="MessageItems\To.cs" />
-    <Compile Include="MessageItems\User.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Models\MessageItems\StatusMessage.cs" />
+    <Compile Include="Models\MessageItems\To.cs" />
+    <Compile Include="Models\MessageItems\User.cs" />
+    <EmbeddedResource Include="ChatForm.resx">
+      <DependentUpon>ChatForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -72,6 +72,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -85,6 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\ChatImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\HipChatIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

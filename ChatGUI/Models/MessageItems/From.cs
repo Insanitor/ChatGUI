@@ -1,4 +1,4 @@
-﻿namespace ChatGUI.MessageItems
+﻿namespace ChatGUI.Models.MessageItems
 {
     public class From
     {

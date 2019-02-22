@@ -1,4 +1,4 @@
-﻿using ChatGUI.MessageItems;
+﻿using ChatGUI.Models.MessageItems;
 using System;
 using System.IO;
 using System.Net;
@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Xml.Serialization;
 
-namespace ChatGUI
+namespace ChatGUI.Models
 {
     public class AsyncClient
     {
@@ -33,7 +33,6 @@ namespace ChatGUI
 
                 Client = new TcpClient(ServerIpAddress.ToString(), ServerPort);
                 Stream = Client.GetStream();
-
             }
             catch
             {

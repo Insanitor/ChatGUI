@@ -1,6 +1,6 @@
 ﻿namespace ChatGUI
 {
-    partial class Form1
+    partial class ChatForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SendButton = new System.Windows.Forms.Button();
             this.ConnectButton = new System.Windows.Forms.Button();
             this.MessageBox = new System.Windows.Forms.TextBox();
@@ -44,7 +45,10 @@
             this.ServerIpBox = new System.Windows.Forms.TextBox();
             this.ToNameBox = new System.Windows.Forms.TextBox();
             this.ServerPortBox = new System.Windows.Forms.NumericUpDown();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // SendButton
@@ -87,9 +91,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(117, 160);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(114, 180);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 13);
+            this.label4.Size = new System.Drawing.Size(108, 16);
             this.label4.TabIndex = 11;
             this.label4.Text = "From IP Address";
             // 
@@ -105,18 +110,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(117, 116);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(114, 116);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(74, 13);
+            this.label3.Size = new System.Drawing.Size(94, 16);
             this.label3.TabIndex = 13;
             this.label3.Text = "To IP Address";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 160);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(8, 180);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 13);
+            this.label2.Size = new System.Drawing.Size(79, 16);
             this.label2.TabIndex = 14;
             this.label2.Text = "From Name";
             // 
@@ -132,33 +140,38 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 116);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(8, 116);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.Size = new System.Drawing.Size(65, 16);
             this.label1.TabIndex = 16;
             this.label1.Text = "To Name";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // FromIpBox
             // 
-            this.FromIpBox.Location = new System.Drawing.Point(117, 179);
+            this.FromIpBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FromIpBox.Location = new System.Drawing.Point(117, 199);
             this.FromIpBox.Name = "FromIpBox";
-            this.FromIpBox.Size = new System.Drawing.Size(100, 20);
+            this.FromIpBox.Size = new System.Drawing.Size(100, 22);
             this.FromIpBox.TabIndex = 5;
             this.FromIpBox.Text = "172.0.0.10";
             // 
             // ToIpBox
             // 
+            this.ToIpBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToIpBox.Location = new System.Drawing.Point(117, 135);
             this.ToIpBox.Name = "ToIpBox";
-            this.ToIpBox.Size = new System.Drawing.Size(100, 20);
+            this.ToIpBox.Size = new System.Drawing.Size(100, 22);
             this.ToIpBox.TabIndex = 7;
             this.ToIpBox.Text = "172.0.0.10";
             // 
             // FromNameBox
             // 
-            this.FromNameBox.Location = new System.Drawing.Point(11, 179);
+            this.FromNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FromNameBox.Location = new System.Drawing.Point(11, 199);
             this.FromNameBox.Name = "FromNameBox";
-            this.FromNameBox.Size = new System.Drawing.Size(100, 20);
+            this.FromNameBox.Size = new System.Drawing.Size(100, 22);
             this.FromNameBox.TabIndex = 8;
             this.FromNameBox.Text = "FromDennis";
             // 
@@ -172,9 +185,10 @@
             // 
             // ToNameBox
             // 
+            this.ToNameBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ToNameBox.Location = new System.Drawing.Point(11, 135);
             this.ToNameBox.Name = "ToNameBox";
-            this.ToNameBox.Size = new System.Drawing.Size(100, 20);
+            this.ToNameBox.Size = new System.Drawing.Size(100, 22);
             this.ToNameBox.TabIndex = 10;
             this.ToNameBox.Text = "ToDennis";
             // 
@@ -195,17 +209,33 @@
             this.ServerPortBox.Size = new System.Drawing.Size(100, 20);
             this.ServerPortBox.TabIndex = 21;
             this.ServerPortBox.Value = new decimal(new int[] {
-            8888,
+            8890,
             0,
             0,
             0});
             this.ServerPortBox.ValueChanged += new System.EventHandler(this.ServerPortBox_ValueChanged);
             // 
-            // Form1
+            // imageList1
+            // 
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ChatGUI.Properties.Resources.HipChatIcon;
+            this.pictureBox1.Location = new System.Drawing.Point(11, 228);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(206, 207);
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
+            // 
+            // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 450);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ServerPortBox);
             this.Controls.Add(this.SendButton);
             this.Controls.Add(this.ConnectButton);
@@ -222,9 +252,10 @@
             this.Controls.Add(this.FromNameBox);
             this.Controls.Add(this.ServerIpBox);
             this.Controls.Add(this.ToNameBox);
-            this.Name = "Form1";
+            this.Name = "ChatForm";
             this.Text = "Chat Server GUI";
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,6 +279,8 @@
         private System.Windows.Forms.TextBox ServerIpBox;
         private System.Windows.Forms.TextBox ToNameBox;
         private System.Windows.Forms.NumericUpDown ServerPortBox;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

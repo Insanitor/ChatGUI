@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ChatGUI.MessageItems
+namespace ChatGUI.Models.MessageItems
 {
     public class Message
     {
