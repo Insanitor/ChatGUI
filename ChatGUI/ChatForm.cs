@@ -10,6 +10,7 @@ namespace ChatGUI
         public static string chatMessage;
         ChatForm me;
         AsyncClient client;
+        int connectedPort;
         public ChatForm()
         {
             InitializeComponent();
@@ -18,9 +19,14 @@ namespace ChatGUI
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
-            if (ServerPortBox.Value == 8888 || ServerPortBox.Value == 8889)
+            if (ServerPortBox.Value != 88901)
+                client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
+            else
+                client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
+
+            if (ServerPortBox.Value == 8889)
             {
+                connectedPort = 8889;
                 Thread listener = new Thread(delegate () { while (true) SetChatBox(client.Recieve()); })
                 {
                     IsBackground = true
@@ -29,7 +35,17 @@ namespace ChatGUI
             }
             else if (ServerPortBox.Value == 8890)
             {
+                connectedPort = 8890;
                 Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveEncrypted()); })
+                {
+                    IsBackground = true
+                };
+                listener.Start();
+            }
+            else if (ServerPortBox.Value == 88901)
+            {
+                connectedPort = 88901;
+                Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveDeepEncrypted()); })
                 {
                     IsBackground = true
                 };
@@ -39,19 +55,28 @@ namespace ChatGUI
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            if (client != null)
+            if (client != null && connectedPort == 8889)
+            {
+                client.Send(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+            }
+            if (client != null && connectedPort == 8890)
             {
                 client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+            }
+            if (client != null && connectedPort == 88901)
+            {
+                client.SendDeepEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
             }
         }
 
         public void SetChatBox(string message)
         {
-            //If the method requires Controls from
-            //the current thread, this thread will
-            //execute it instead of the outside caller
+            //Checks the method requires Controls
+            //from the current thread
             if (InvokeRequired)
             {
+                //Invokes a MethodInvoker-Delegate
+                //that can automagically call the method
                 this.Invoke((MethodInvoker)delegate () { me.SetChatBox(message); });
                 return;
             }

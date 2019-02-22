@@ -48,6 +48,7 @@
             this.ServerPortBox = new System.Windows.Forms.NumericUpDown();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label7 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -200,7 +201,7 @@
             // 
             this.ServerPortBox.Location = new System.Drawing.Point(117, 30);
             this.ServerPortBox.Maximum = new decimal(new int[] {
-            9999,
+            88901,
             0,
             0,
             0});
@@ -234,11 +235,21 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 432);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(145, 13);
+            this.label7.TabIndex = 23;
+            this.label7.Text = "Made by Dennis F. J. Dupont";
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(681, 450);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ServerPortBox);
             this.Controls.Add(this.SendButton);
@@ -286,6 +297,7 @@
         private System.Windows.Forms.NumericUpDown ServerPortBox;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label7;
     }
 }
 
