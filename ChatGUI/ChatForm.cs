@@ -119,13 +119,12 @@ namespace ChatGUI
             else if (e.KeyCode == Keys.Right)
             {
                 ((TextBox)sender).SelectionStart += 1;
-                ((TextBox)sender).SelectionLength = 0;
             }
             else if (e.KeyCode == Keys.Left && MessageBox.SelectionStart > 0)
             {
                 ((TextBox)sender).SelectionStart -= 1;
-                ((TextBox)sender).SelectionLength = 0;
             }
+            ((TextBox)sender).SelectionLength = 0;
         }
 
         private void RestartButton_Click(object sender, EventArgs e)
@@ -149,7 +148,7 @@ namespace ChatGUI
             {
                 ((TextBox)sender).SelectionStart -= 1;
             }
-                ((TextBox)sender).SelectionLength = 0;
+            ((TextBox)sender).SelectionLength = 0;
         }
 
         private void NextTapNumeric_KeyPress(object sender, KeyEventArgs e)
