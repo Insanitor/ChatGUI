@@ -287,6 +287,8 @@
             this.Controls.Add(this.FromNameBox);
             this.Controls.Add(this.ServerIpBox);
             this.Controls.Add(this.ToNameBox);
+            this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(695, 485);
             this.MinimumSize = new System.Drawing.Size(695, 485);
