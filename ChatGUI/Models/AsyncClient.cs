@@ -4,7 +4,6 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading;
 using System.Xml.Serialization;
 
 namespace ChatGUI.Models
@@ -15,8 +14,6 @@ namespace ChatGUI.Models
         protected int ServerPort { get; set; }
 
         protected NetworkStream Stream { get; set; }
-
-        protected Thread Thread { get; set; }
 
         /// <summary>
         /// Constructor for an Async Client
@@ -43,7 +40,15 @@ namespace ChatGUI.Models
         /// </summary>
         public new void Close()
         {
-            Client.Close();
+            try
+            {
+                Client.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         /// <summary>
