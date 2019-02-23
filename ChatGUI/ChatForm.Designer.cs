@@ -94,10 +94,12 @@
             this.ChatTextBox.Location = new System.Drawing.Point(223, 9);
             this.ChatTextBox.Name = "ChatTextBox";
             this.ChatTextBox.ReadOnly = true;
+            this.ChatTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.ChatTextBox.Size = new System.Drawing.Size(447, 391);
             this.ChatTextBox.TabIndex = 17;
             this.ChatTextBox.TabStop = false;
             this.ChatTextBox.Text = resources.GetString("ChatTextBox.Text");
+            this.ChatTextBox.TextChanged += new System.EventHandler(this.ChatTextBox_TextChanged);
             // 
             // label4
             // 
@@ -227,7 +229,7 @@
             0,
             0,
             0});
-            this.ServerPortBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
+            this.ServerPortBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTapNumeric_KeyPress);
             // 
             // imageList1
             // 

@@ -161,7 +161,7 @@ namespace ChatGUI.Models
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {
-                                return (m.From.Name + ">>" + m.To.Name + ":" + m.Mb.Body);
+                                return (m.From.Name + ">>" + m.To.Name + ": " + m.Mb.Body);
                             }
                 }
                 return null;
@@ -207,7 +207,7 @@ namespace ChatGUI.Models
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {
-                                return (m.From.Name + ">>" + m.To.Name + ":" + m.Mb.Body);
+                                return (m.From.Name + ">>" + m.To.Name + ": " + m.Mb.Body);
                             }
                     }
                 }
