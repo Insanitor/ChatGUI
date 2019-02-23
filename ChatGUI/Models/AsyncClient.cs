@@ -39,14 +39,21 @@ namespace ChatGUI.Models
         }
 
         /// <summary>
+        /// Close medthod for Async Client.
+        /// </summary>
+        public new void Close()
+        {
+            Client.Close();
+        }
+
+        /// <summary>
         /// Deconstructor that makes sure the connection gets closed
         /// </summary>
         ~AsyncClient()
         {
             try
             {
-                if (this.Connected)
-                    Client.Close();
+                Client.Close();
             }
             catch
             {

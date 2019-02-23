@@ -48,8 +48,8 @@
             this.ServerPortBox = new System.Windows.Forms.NumericUpDown();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.DisconnectButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             this.ConnectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectButton.Location = new System.Drawing.Point(11, 58);
             this.ConnectButton.Name = "ConnectButton";
-            this.ConnectButton.Size = new System.Drawing.Size(75, 23);
+            this.ConnectButton.Size = new System.Drawing.Size(91, 33);
             this.ConnectButton.TabIndex = 3;
             this.ConnectButton.Text = "Connect";
             this.ConnectButton.UseVisualStyleBackColor = false;
@@ -243,23 +243,11 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label7.Location = new System.Drawing.Point(500, 439);
+            this.label7.Location = new System.Drawing.Point(5, 424);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(172, 13);
             this.label7.TabIndex = 23;
             this.label7.Text = "Made by Dennis F. J. Dupont";
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Red;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(11, 428);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 24;
-            this.button1.Text = "Restart";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.RestartButton_Click);
             // 
             // pictureBox1
             // 
@@ -270,17 +258,29 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             // 
+            // DisconnectButton
+            // 
+            this.DisconnectButton.BackColor = System.Drawing.Color.Red;
+            this.DisconnectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisconnectButton.Location = new System.Drawing.Point(117, 58);
+            this.DisconnectButton.Name = "DisconnectButton";
+            this.DisconnectButton.Size = new System.Drawing.Size(91, 33);
+            this.DisconnectButton.TabIndex = 10;
+            this.DisconnectButton.Text = "Disconnect";
+            this.DisconnectButton.UseVisualStyleBackColor = false;
+            this.DisconnectButton.Click += new System.EventHandler(this.DisconnectButton_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
-            this.ClientSize = new System.Drawing.Size(684, 461);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(679, 446);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ServerPortBox);
             this.Controls.Add(this.SendButton);
+            this.Controls.Add(this.DisconnectButton);
             this.Controls.Add(this.ConnectButton);
             this.Controls.Add(this.MessageBox);
             this.Controls.Add(this.ChatTextBox);
@@ -296,8 +296,8 @@
             this.Controls.Add(this.ServerIpBox);
             this.Controls.Add(this.ToNameBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(700, 500);
-            this.MinimumSize = new System.Drawing.Size(700, 500);
+            this.MaximumSize = new System.Drawing.Size(695, 485);
+            this.MinimumSize = new System.Drawing.Size(695, 485);
             this.Name = "ChatForm";
             this.Text = "Chat Client";
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).EndInit();
@@ -328,7 +328,7 @@
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button DisconnectButton;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using ChatGUI.Models;
 using System;
+using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -8,16 +9,19 @@ namespace ChatGUI
     public partial class ChatForm : Form
     {
         public static string chatMessage;
-        ChatForm me;
-        AsyncClient client;
+        ChatForm chatForm;
+        static AsyncClient client;
         int connectedPort;
+
+        bool clientConnected = false;
+
         public ChatForm()
         {
             InitializeComponent();
             ChatTextBox.Text = "";
-            me = this;
-            me.MaximizeBox = false;
-            me.MinimizeBox = false;
+            chatForm = this;
+            chatForm.MaximizeBox = false;
+            chatForm.MinimizeBox = false;
             this.KeyPreview = true;
         }
 
@@ -25,7 +29,7 @@ namespace ChatGUI
         {
             try
             {
-                if (client == null)
+                if (!clientConnected)
                 {
                     ChatTextBox.Text += "Trying to Connect...\n";
                     if (ServerPortBox.Value != 88901)
@@ -35,11 +39,12 @@ namespace ChatGUI
 
                     if (client.Connected)
                     {
+                        clientConnected = true;
                         ChatTextBox.Text += "Connected to: " + ServerIpBox.Text + "\n";
                         if (ServerPortBox.Value == 8889)
                         {
                             connectedPort = 8889;
-                            Thread listener = new Thread(delegate () { while (true) SetChatBox(client.Recieve()); })
+                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.Recieve()); })
                             {
                                 IsBackground = true
                             };
@@ -48,7 +53,7 @@ namespace ChatGUI
                         else if (ServerPortBox.Value == 8890)
                         {
                             connectedPort = 8890;
-                            Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveEncrypted()); })
+                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.RecieveEncrypted()); })
                             {
                                 IsBackground = true
                             };
@@ -57,7 +62,7 @@ namespace ChatGUI
                         else if (ServerPortBox.Value == 88901)
                         {
                             connectedPort = 88901;
-                            Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveDeepEncrypted()); })
+                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.RecieveDeepEncrypted()); })
                             {
                                 IsBackground = true
                             };
@@ -77,9 +82,11 @@ namespace ChatGUI
             }
         }
 
+
+
         private void SendButton_Click(object sender, EventArgs e)
         {
-            if (client != null)
+            if (clientConnected)
             {
                 if (MessageBox.Text != "")
                     if (client != null && connectedPort == 8889)
@@ -113,11 +120,11 @@ namespace ChatGUI
             {
                 //Invokes a MethodInvoker-Delegate
                 //that can automagically call the method
-                this.Invoke((MethodInvoker)delegate () { me.SetChatBox(message); });
+                this.Invoke((MethodInvoker)delegate () { chatForm.SetChatBox(message); });
                 return;
             }
             if (message != null && message != "")
-                me.ChatTextBox.Text += message + "\n";
+                chatForm.ChatTextBox.Text += message + "\n";
         }
 
         private void MessageBox_KeyDown(object sender, KeyEventArgs e)
@@ -176,6 +183,23 @@ namespace ChatGUI
             ChatTextBox.SelectionStart = ChatTextBox.TextLength;
 
             ChatTextBox.ScrollToCaret();
+        }
+
+        private void DisconnectButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (clientConnected)
+                {
+                    clientConnected = false;
+                    client.Close();
+                    ChatTextBox.Text += "Connection Closed.\n";
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }
