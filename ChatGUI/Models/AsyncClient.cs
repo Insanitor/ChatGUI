@@ -11,12 +11,12 @@ namespace ChatGUI.Models
 {
     public class AsyncClient
     {
-        protected static TcpClient Client { get; set; }
+        public TcpClient Client { get; set; }
 
-        protected static IPAddress ServerIpAddress { get; set; }
-        protected static int ServerPort { get; set; }
+        protected IPAddress ServerIpAddress { get; set; }
+        protected int ServerPort { get; set; }
 
-        protected static NetworkStream Stream { get; set; }
+        protected NetworkStream Stream { get; set; }
 
         protected Thread Thread { get; set; }
 
@@ -150,7 +150,7 @@ namespace ChatGUI.Models
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {
-                                return (m.From.Name + " said: " + m.Mb.Body);
+                                return (m.From.Name + ">>" + m.To.Name + ":" + m.Mb.Body);
                             }
                 }
                 return null;
@@ -187,7 +187,7 @@ namespace ChatGUI.Models
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {
-                                return (m.From.Name + " said: " + m.Mb.Body);
+                                return (m.From.Name + ">>" + m.To.Name + ":" + m.Mb.Body);
                             }
                     }
                 }
@@ -227,7 +227,7 @@ namespace ChatGUI.Models
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {
-                                return (m.From.Name + " said to " + m.To.Name + ": " + m.Mb.Body);
+                                return (m.From.Name + ">>" + m.To.Name + ": " + m.Mb.Body);
                             }
                     }
                 }

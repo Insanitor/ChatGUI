@@ -77,6 +77,7 @@
             // MessageBox
             // 
             this.MessageBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MessageBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.MessageBox.Location = new System.Drawing.Point(223, 406);
             this.MessageBox.Name = "MessageBox";
             this.MessageBox.Size = new System.Drawing.Size(373, 29);
@@ -84,13 +85,14 @@
             // 
             // ChatTextBox
             // 
+            this.ChatTextBox.Font = new System.Drawing.Font("DejaVu Serif Condensed", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatTextBox.Location = new System.Drawing.Point(223, 9);
             this.ChatTextBox.Name = "ChatTextBox";
             this.ChatTextBox.ReadOnly = true;
             this.ChatTextBox.Size = new System.Drawing.Size(447, 391);
             this.ChatTextBox.TabIndex = 17;
             this.ChatTextBox.TabStop = false;
-            this.ChatTextBox.Text = "";
+            this.ChatTextBox.Text = resources.GetString("ChatTextBox.Text");
             // 
             // label4
             // 
@@ -120,7 +122,6 @@
             this.label3.Size = new System.Drawing.Size(94, 16);
             this.label3.TabIndex = 13;
             this.label3.Text = "To IP Address";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -150,7 +151,6 @@
             this.label1.Size = new System.Drawing.Size(65, 16);
             this.label1.TabIndex = 16;
             this.label1.Text = "To Name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // FromIpBox
             // 
@@ -160,7 +160,6 @@
             this.FromIpBox.Size = new System.Drawing.Size(100, 22);
             this.FromIpBox.TabIndex = 7;
             this.FromIpBox.Text = "172.0.0.10";
-            this.FromIpBox.TextChanged += new System.EventHandler(this.FromIpBox_TextChanged);
             // 
             // ToIpBox
             // 
@@ -218,7 +217,6 @@
             0,
             0,
             0});
-            this.ServerPortBox.ValueChanged += new System.EventHandler(this.ServerPortBox_ValueChanged);
             // 
             // imageList1
             // 
