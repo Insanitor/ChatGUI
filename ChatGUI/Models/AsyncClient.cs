@@ -139,7 +139,10 @@ namespace ChatGUI.Models
                 //Reads the Datastream into the Buffer
                 //and adds it to the StringBuilder
                 //and clears whitespace
-                message.Append(reader.Read(new char[3000], 0, 3000));
+                char[] buffer = new char[3000];
+                reader.Read(buffer, 0, buffer.Length);
+                foreach (char b in buffer)
+                    message.Append(b);
                 message = message.Remove(message.ToString().IndexOf("</Message>") + "</Message>".Length, "</Message>".Length);
 
                 //Opens a String Reader to have a
