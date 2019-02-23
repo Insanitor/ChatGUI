@@ -296,7 +296,7 @@
             this.MaximumSize = new System.Drawing.Size(700, 500);
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "ChatForm";
-            this.Text = "Chat Server GUI";
+            this.Text = "Chat Client GUI";
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
