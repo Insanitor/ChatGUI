@@ -110,7 +110,7 @@ namespace ChatGUI
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void RestartButton_Click(object sender, EventArgs e)
         {
             Application.Restart();
             Environment.Exit(0);
