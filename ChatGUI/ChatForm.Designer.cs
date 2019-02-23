@@ -85,6 +85,7 @@
             this.MessageBox.Name = "MessageBox";
             this.MessageBox.Size = new System.Drawing.Size(375, 29);
             this.MessageBox.TabIndex = 8;
+            this.MessageBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MessageBox_KeyDown);
             // 
             // ChatTextBox
             // 
@@ -164,6 +165,7 @@
             this.FromIpBox.Size = new System.Drawing.Size(100, 22);
             this.FromIpBox.TabIndex = 7;
             this.FromIpBox.Text = "172.0.0.10";
+            this.FromIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToIpBox
             // 
@@ -173,6 +175,7 @@
             this.ToIpBox.Size = new System.Drawing.Size(100, 22);
             this.ToIpBox.TabIndex = 5;
             this.ToIpBox.Text = "172.0.0.10";
+            this.ToIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // FromNameBox
             // 
@@ -182,6 +185,7 @@
             this.FromNameBox.Size = new System.Drawing.Size(100, 22);
             this.FromNameBox.TabIndex = 6;
             this.FromNameBox.Text = "FromDennis";
+            this.FromNameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ServerIpBox
             // 
@@ -190,6 +194,7 @@
             this.ServerIpBox.Size = new System.Drawing.Size(100, 20);
             this.ServerIpBox.TabIndex = 1;
             this.ServerIpBox.Text = "172.0.0.10";
+            this.ServerIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToNameBox
             // 
@@ -199,6 +204,7 @@
             this.ToNameBox.Size = new System.Drawing.Size(100, 22);
             this.ToNameBox.TabIndex = 4;
             this.ToNameBox.Text = "ToDennis";
+            this.ToNameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ServerPortBox
             // 
@@ -221,6 +227,7 @@
             0,
             0,
             0});
+            this.ServerPortBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // imageList1
             // 

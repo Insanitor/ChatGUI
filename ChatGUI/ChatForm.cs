@@ -15,7 +15,7 @@ namespace ChatGUI
         {
             InitializeComponent();
             ChatTextBox.Text = "";
-            AcceptButton = SendButton;
+            //AcceptButton = SendButton;
             me = this;
         }
 
@@ -59,6 +59,7 @@ namespace ChatGUI
                         };
                         listener.Start();
                     }
+                    this.SelectNextControl((Control)sender, true, true, true, true);
                 }
             }
             catch
@@ -102,17 +103,26 @@ namespace ChatGUI
 
         private void MessageBox_KeyDown(object sender, KeyEventArgs e)
         {
-            //e.Handled = true;
-            //if (e.KeyCode == Keys.Enter)
-            //{
-            //    SendButton_Click(this, new EventArgs());
-            //}
+            e.Handled = true;
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendButton_Click(this, new EventArgs());
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Restart();
             Environment.Exit(0);
+        }
+
+        private void NextTap_KeyPress(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+            if (e.KeyCode == Keys.Enter)
+            {
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
         }
     }
 }
