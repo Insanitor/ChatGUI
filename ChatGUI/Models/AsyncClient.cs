@@ -177,12 +177,21 @@ namespace ChatGUI.Models
                 XmlSerializer ser = new XmlSerializer(typeof(Message));
                 StreamReader reader = new StreamReader(Stream);
 
+                //Creates a StringBuilder to build the message
                 StringBuilder message = new StringBuilder();
+
+                //Reads the Datastream into the Buffer
+                //and adds it to the StringBuilder
+                //and clears whitespace
                 char[] buffer = new char[3000];
                 reader.Read(buffer, 0, buffer.Length);
                 foreach (char b in buffer)
                     message.Append(b);
                 message = message.Remove(message.ToString().IndexOf("</Message>") + "</Message>".Length, "</Message>".Length);
+
+                //Opens a String Reader to have a
+                //stream to deserialize and feeds it
+                //the string builder as a string
                 using (StringReader sr = new StringReader(message.ToString()))
                 {
                     var m = ser.Deserialize(sr) as Message;
@@ -215,12 +224,21 @@ namespace ChatGUI.Models
                 XmlSerializer ser = new XmlSerializer(typeof(Message));
                 StreamReader reader = new StreamReader(Stream);
 
+                //Creates a StringBuilder to build the message
                 StringBuilder message = new StringBuilder();
+
+                //Reads the Datastream into the Buffer
+                //and adds it to the StringBuilder
+                //and clears whitespace
                 char[] buffer = new char[3000];
                 reader.Read(buffer, 0, buffer.Length);
                 foreach (char b in buffer)
                     message.Append(b);
                 message = message.Remove(message.ToString().IndexOf("</Message>") + "</Message>".Length, "</Message>".Length);
+
+                //Opens a String Reader to have a
+                //stream to deserialize and feeds it
+                //the string builder as a string
                 using (StringReader sr = new StringReader(message.ToString()))
                 {
                     var m = ser.Deserialize(sr) as Message;
