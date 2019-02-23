@@ -27,7 +27,7 @@ namespace ChatGUI
             else
                 client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
 
-            if (client.Client.Connected)
+            if (client.Connected)
             {
                 ChatTextBox.Text += "Connected to: " + ServerIpBox.Text + "\n";
                 if (ServerPortBox.Value == 8889)

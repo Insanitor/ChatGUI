@@ -9,10 +9,8 @@ using System.Xml.Serialization;
 
 namespace ChatGUI.Models
 {
-    public class AsyncClient
+    public class AsyncClient : TcpClient
     {
-        public TcpClient Client { get; set; }
-
         protected IPAddress ServerIpAddress { get; set; }
         protected int ServerPort { get; set; }
 
@@ -25,15 +23,14 @@ namespace ChatGUI.Models
         /// </summary>
         /// <param name="serverIp">The IP Address of the Server you wish to connect to</param>
         /// <param name="serverPort">The Port Number of the Server you wish to connect to</param>
-        public AsyncClient(string serverIp, int serverPort)
+        public AsyncClient(string hostname, int port) : base(hostname,port)
         {
             try
             {
-                ServerIpAddress = IPAddress.Parse(serverIp);
-                ServerPort = serverPort;
+                ServerIpAddress = IPAddress.Parse(hostname);
+                ServerPort = port;
 
-                Client = new TcpClient(ServerIpAddress.ToString(), ServerPort);
-                Stream = Client.GetStream();
+                Stream = this.GetStream();
             }
             catch
             {
@@ -95,6 +92,11 @@ namespace ChatGUI.Models
             }
         }
 
+        /// <summary>
+        /// Encrypts the Body, To Name & From Name
+        /// of the Message and sends it as XML
+        /// </summary>
+        /// <param name="message">Message to Encrypt & Send</param>
         public void SendDeepEncrypted(Message message)
         {
             try
