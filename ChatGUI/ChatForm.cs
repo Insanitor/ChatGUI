@@ -15,8 +15,9 @@ namespace ChatGUI
         {
             InitializeComponent();
             ChatTextBox.Text = "";
-            //AcceptButton = SendButton;
             me = this;
+            me.MaximizeBox = false;
+            me.MinimizeBox = false;
             this.KeyPreview = true;
         }
 
@@ -101,7 +102,7 @@ namespace ChatGUI
             {
                 ChatTextBox.Text += "Must be Connected to a Server to send messages.\n";
             }
-                MessageBox.Text = "";
+            MessageBox.Text = "";
         }
 
         public void SetChatBox(string message)
