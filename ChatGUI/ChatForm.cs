@@ -101,5 +101,11 @@ namespace ChatGUI
             //    SendButton_Click(this, new EventArgs());
             //}
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
+            Environment.Exit(0);
+        }
     }
 }
