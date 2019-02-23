@@ -22,41 +22,48 @@ namespace ChatGUI
         private void ConnectButton_Click(object sender, EventArgs e)
         {
             ChatTextBox.Text += "Trying to Connect...\n";
-            if (ServerPortBox.Value != 88901)
-                client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
-            else
-                client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
-
-            if (client.Connected)
+            try
             {
-                ChatTextBox.Text += "Connected to: " + ServerIpBox.Text + "\n";
-                if (ServerPortBox.Value == 8889)
+                if (ServerPortBox.Value != 88901)
+                    client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
+                else
+                    client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
+
+                if (client.Connected)
                 {
-                    connectedPort = 8889;
-                    Thread listener = new Thread(delegate () { while (true) SetChatBox(client.Recieve()); })
+                    ChatTextBox.Text += "Connected to: " + ServerIpBox.Text + "\n";
+                    if (ServerPortBox.Value == 8889)
                     {
-                        IsBackground = true
-                    };
-                    listener.Start();
-                }
-                else if (ServerPortBox.Value == 8890)
-                {
-                    connectedPort = 8890;
-                    Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveEncrypted()); })
+                        connectedPort = 8889;
+                        Thread listener = new Thread(delegate () { while (true) SetChatBox(client.Recieve()); })
+                        {
+                            IsBackground = true
+                        };
+                        listener.Start();
+                    }
+                    else if (ServerPortBox.Value == 8890)
                     {
-                        IsBackground = true
-                    };
-                    listener.Start();
-                }
-                else if (ServerPortBox.Value == 88901)
-                {
-                    connectedPort = 88901;
-                    Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveDeepEncrypted()); })
+                        connectedPort = 8890;
+                        Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveEncrypted()); })
+                        {
+                            IsBackground = true
+                        };
+                        listener.Start();
+                    }
+                    else if (ServerPortBox.Value == 88901)
                     {
-                        IsBackground = true
-                    };
-                    listener.Start();
+                        connectedPort = 88901;
+                        Thread listener = new Thread(delegate () { while (true) SetChatBox(client.RecieveDeepEncrypted()); })
+                        {
+                            IsBackground = true
+                        };
+                        listener.Start();
+                    }
                 }
+            }
+            catch
+            {
+                ChatTextBox.Text += "Connection Failed.\n";
             }
         }
 

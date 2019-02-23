@@ -23,7 +23,7 @@ namespace ChatGUI.Models
         /// </summary>
         /// <param name="serverIp">The IP Address of the Server you wish to connect to</param>
         /// <param name="serverPort">The Port Number of the Server you wish to connect to</param>
-        public AsyncClient(string hostname, int port) : base(hostname,port)
+        public AsyncClient(string hostname, int port) : base(hostname, port)
         {
             try
             {
@@ -43,8 +43,14 @@ namespace ChatGUI.Models
         /// </summary>
         ~AsyncClient()
         {
-            if (Client.Connected)
-                Client.Close();
+            try
+            {
+                if (this.Connected)
+                    Client.Close();
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
