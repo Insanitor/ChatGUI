@@ -58,9 +58,9 @@
             // 
             this.SendButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.SendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SendButton.Location = new System.Drawing.Point(602, 406);
+            this.SendButton.Location = new System.Drawing.Point(604, 406);
             this.SendButton.Name = "SendButton";
-            this.SendButton.Size = new System.Drawing.Size(66, 29);
+            this.SendButton.Size = new System.Drawing.Size(68, 30);
             this.SendButton.TabIndex = 9;
             this.SendButton.Text = "Send";
             this.SendButton.UseVisualStyleBackColor = false;
@@ -83,7 +83,7 @@
             this.MessageBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.MessageBox.Location = new System.Drawing.Point(223, 406);
             this.MessageBox.Name = "MessageBox";
-            this.MessageBox.Size = new System.Drawing.Size(373, 29);
+            this.MessageBox.Size = new System.Drawing.Size(375, 29);
             this.MessageBox.TabIndex = 8;
             // 
             // ChatTextBox
@@ -240,7 +240,8 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(525, 438);
+            this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label7.Location = new System.Drawing.Point(527, 439);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(145, 13);
             this.label7.TabIndex = 23;
