@@ -47,9 +47,9 @@
             this.ToNameBox = new System.Windows.Forms.TextBox();
             this.ServerPortBox = new System.Windows.Forms.NumericUpDown();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -69,6 +69,7 @@
             // ConnectButton
             // 
             this.ConnectButton.BackColor = System.Drawing.Color.LimeGreen;
+            this.ConnectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectButton.Location = new System.Drawing.Point(11, 58);
             this.ConnectButton.Name = "ConnectButton";
             this.ConnectButton.Size = new System.Drawing.Size(75, 23);
@@ -237,28 +238,21 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::ChatGUI.Properties.Resources.HipChatIcon;
-            this.pictureBox1.Location = new System.Drawing.Point(11, 228);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(206, 207);
-            this.pictureBox1.TabIndex = 22;
-            this.pictureBox1.TabStop = false;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label7.Location = new System.Drawing.Point(527, 439);
+            this.label7.Location = new System.Drawing.Point(500, 439);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(145, 13);
+            this.label7.Size = new System.Drawing.Size(172, 13);
             this.label7.TabIndex = 23;
             this.label7.Text = "Made by Dennis F. J. Dupont";
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Red;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(11, 428);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -266,6 +260,15 @@
             this.button1.Text = "Restart";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.RestartButton_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::ChatGUI.Properties.Resources.HipChat;
+            this.pictureBox1.Location = new System.Drawing.Point(11, 228);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(206, 207);
+            this.pictureBox1.TabIndex = 22;
+            this.pictureBox1.TabStop = false;
             // 
             // ChatForm
             // 
