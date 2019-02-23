@@ -29,7 +29,7 @@ namespace ChatGUI.Models
 
                 Stream = this.GetStream();
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -60,8 +60,9 @@ namespace ChatGUI.Models
             {
                 Client.Close();
             }
-            catch
+            catch (Exception)
             {
+                throw;
             }
         }
 
@@ -79,7 +80,7 @@ namespace ChatGUI.Models
                 //Serialize the message
                 ser.Serialize(Stream, message);
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -104,7 +105,7 @@ namespace ChatGUI.Models
                 //Serialize the encrypted message
                 ser.Serialize(Stream, message);
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -135,7 +136,7 @@ namespace ChatGUI.Models
                 //Serialize the encrypted message
                 ser.Serialize(Stream, message);
             }
-            catch
+            catch (Exception)
             {
                 throw;
             }
@@ -178,7 +179,7 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
-            catch
+            catch (Exception)
             {
                 return null;
                 throw;
@@ -225,7 +226,7 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
-            catch
+            catch (Exception)
             {
                 return null;
                 throw;
@@ -274,7 +275,7 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
-            catch
+            catch (Exception)
             {
                 return null;
                 throw;
