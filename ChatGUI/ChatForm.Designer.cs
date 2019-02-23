@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
             this.SendButton = new System.Windows.Forms.Button();
             this.ConnectButton = new System.Windows.Forms.Button();
@@ -46,7 +45,6 @@
             this.ServerIpBox = new System.Windows.Forms.TextBox();
             this.ToNameBox = new System.Windows.Forms.TextBox();
             this.ServerPortBox = new System.Windows.Forms.NumericUpDown();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DisconnectButton = new System.Windows.Forms.Button();
@@ -232,12 +230,6 @@
             0});
             this.ServerPortBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTapNumeric_KeyPress);
             // 
-            // imageList1
-            // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -325,7 +317,6 @@
         private System.Windows.Forms.TextBox ServerIpBox;
         private System.Windows.Forms.TextBox ToNameBox;
         private System.Windows.Forms.NumericUpDown ServerPortBox;
-        private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button DisconnectButton;
