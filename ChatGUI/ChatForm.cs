@@ -78,20 +78,30 @@ namespace ChatGUI
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Text != "")
-                if (client != null && connectedPort == 8889)
-                {
-                    client.Send(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
-                }
-                else if (client != null && connectedPort == 8890)
-                {
-                    client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
-                }
-                else if (client != null && connectedPort == 88901)
-                {
-                    client.SendDeepEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
-                }
-            MessageBox.Text = "";
+            if (client != null)
+            {
+                if (MessageBox.Text != "")
+                    if (client != null && connectedPort == 8889)
+                    {
+                        ChatTextBox.Text += FromNameBox.Text + ">>" + ToNameBox.Text + ": " + MessageBox.Text + "\n";
+                        client.Send(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+                    }
+                    else if (client != null && connectedPort == 8890)
+                    {
+                        ChatTextBox.Text += FromNameBox.Text + ">>" + ToNameBox.Text + ": " + MessageBox.Text + "\n";
+                        client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+                    }
+                    else if (client != null && connectedPort == 88901)
+                    {
+                        ChatTextBox.Text += FromNameBox.Text + ">>" + ToNameBox.Text + ": " + MessageBox.Text + "\n";
+                        client.SendDeepEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+                    }
+            }
+            else
+            {
+                ChatTextBox.Text += "Must be Connected to a Server to send messages.\n";
+            }
+                MessageBox.Text = "";
         }
 
         public void SetChatBox(string message)
