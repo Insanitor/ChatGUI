@@ -23,6 +23,7 @@ namespace ChatGUI.Models
         public RSAParameters MyRSAKeyInfo { get; set; }
 
         public List<User> Users { get; set; }
+
         /// <summary>
         /// Constructor for an Async Client
         /// </summary>
@@ -44,7 +45,6 @@ namespace ChatGUI.Models
                 throw;
             }
         }
-
 
         /// <summary>
         /// Deconstructor that makes sure the connection gets closed
