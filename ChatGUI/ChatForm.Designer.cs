@@ -48,6 +48,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.DisconnectButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ServerPortBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -89,7 +90,7 @@
             // ChatTextBox
             // 
             this.ChatTextBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ChatTextBox.Font = new System.Drawing.Font("DejaVu Serif Condensed", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ChatTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ChatTextBox.Location = new System.Drawing.Point(223, 9);
             this.ChatTextBox.Name = "ChatTextBox";
             this.ChatTextBox.ReadOnly = true;
@@ -165,7 +166,7 @@
             this.FromIpBox.Name = "FromIpBox";
             this.FromIpBox.Size = new System.Drawing.Size(100, 22);
             this.FromIpBox.TabIndex = 7;
-            this.FromIpBox.Text = "172.0.0.10";
+            this.FromIpBox.Text = "192.168.1.7";
             this.FromIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToIpBox
@@ -175,7 +176,7 @@
             this.ToIpBox.Name = "ToIpBox";
             this.ToIpBox.Size = new System.Drawing.Size(100, 22);
             this.ToIpBox.TabIndex = 5;
-            this.ToIpBox.Text = "172.0.0.10";
+            this.ToIpBox.Text = "192.168.1.11";
             this.ToIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // FromNameBox
@@ -185,7 +186,7 @@
             this.FromNameBox.Name = "FromNameBox";
             this.FromNameBox.Size = new System.Drawing.Size(100, 22);
             this.FromNameBox.TabIndex = 6;
-            this.FromNameBox.Text = "FromDennis";
+            this.FromNameBox.Text = "Dennis";
             this.FromNameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ServerIpBox
@@ -194,7 +195,7 @@
             this.ServerIpBox.Name = "ServerIpBox";
             this.ServerIpBox.Size = new System.Drawing.Size(100, 20);
             this.ServerIpBox.TabIndex = 1;
-            this.ServerIpBox.Text = "172.0.0.10";
+            this.ServerIpBox.Text = "192.168.1.2";
             this.ServerIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToNameBox
@@ -204,7 +205,7 @@
             this.ToNameBox.Name = "ToNameBox";
             this.ToNameBox.Size = new System.Drawing.Size(100, 22);
             this.ToNameBox.TabIndex = 4;
-            this.ToNameBox.Text = "ToDennis";
+            this.ToNameBox.Text = "Someone";
             this.ToNameBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ServerPortBox
@@ -262,12 +263,23 @@
             this.DisconnectButton.UseVisualStyleBackColor = false;
             this.DisconnectButton.Click += new System.EventHandler(this.DisconnectButton_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(64, 307);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "TestButton";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Highlight;
             this.ClientSize = new System.Drawing.Size(679, 446);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.ServerPortBox);
@@ -322,6 +334,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button DisconnectButton;
+        private System.Windows.Forms.Button button1;
     }
 }
 

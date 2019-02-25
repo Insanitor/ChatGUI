@@ -32,8 +32,10 @@ namespace ChatGUI
                 if (!clientConnected)
                 {
                     ChatTextBox.Text += "Trying to Connect...\n";
-                    if (ServerPortBox.Value != 88901)
+                    if (ServerPortBox.Value != 88901 && ServerPortBox.Value != 8891)
                         client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
+                    else if (ServerPortBox.Value == 8891)
+                        client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()), true);
                     else
                         client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
 
@@ -68,6 +70,15 @@ namespace ChatGUI
                             };
                             listener.Start();
                         }
+                        else if (ServerPortBox.Value == 8891)
+                        {
+                            connectedPort = 8891;
+                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.RecieveEncryptedWithRsa()); })
+                            {
+                                IsBackground = true
+                            };
+                            listener.Start();
+                        }
                         this.SelectNextControl((Control)sender, true, true, true, true);
                     }
                 }
@@ -91,18 +102,23 @@ namespace ChatGUI
                 if (MessageBox.Text != "")
                     if (client != null && connectedPort == 8889)
                     {
-                        ChatTextBox.Text += FromNameBox.Text + ">>" + ToNameBox.Text + ": " + MessageBox.Text + "\n";
+                        ChatTextBox.Text += "You Said: " + MessageBox.Text + "\n";
                         client.Send(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
                     }
                     else if (client != null && connectedPort == 8890)
                     {
-                        ChatTextBox.Text += FromNameBox.Text + ">>" + ToNameBox.Text + ": " + MessageBox.Text + "\n";
+                        ChatTextBox.Text += "You Said: " + MessageBox.Text + "\n";
                         client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
                     }
                     else if (client != null && connectedPort == 88901)
                     {
-                        ChatTextBox.Text += FromNameBox.Text + ">>" + ToNameBox.Text + ": " + MessageBox.Text + "\n";
+                        ChatTextBox.Text += "You Said: " + MessageBox.Text + "\n";
                         client.SendDeepEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+                    }
+                    else if (client != null && connectedPort == 8891)
+                    {
+                        ChatTextBox.Text += "You Said: " + MessageBox.Text + "\n";
+                        client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
                     }
             }
             else
@@ -199,6 +215,24 @@ namespace ChatGUI
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (client != null)
+            {
+
+                ChatTextBox.Text += "client isn't null!";
+                if (client.Users != null)
+                {
+
+                    ChatTextBox.Text += "Client.Users isn't null";
+                    for (int i = 0; i < client.Users.Count; i++)
+                    {
+                        ChatTextBox.Text += "User#" + i + ": " + client.Users + "\n";
+                    }
+                }
             }
         }
     }

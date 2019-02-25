@@ -1,8 +1,11 @@
 ﻿using ChatGUI.Models.MessageItems;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -15,19 +18,26 @@ namespace ChatGUI.Models
 
         protected NetworkStream Stream { get; set; }
 
+        public RSACryptoServiceProvider MyRSAKey { get; set; }
+        public RSAParameters MyRSAKeyInfo { get; set; }
+
+        public List<User> Users { get; set; }
         /// <summary>
         /// Constructor for an Async Client
         /// </summary>
         /// <param name="serverIp">The IP Address of the Server you wish to connect to</param>
         /// <param name="serverPort">The Port Number of the Server you wish to connect to</param>
-        public AsyncClient(string hostname, int port) : base(hostname, port)
+        public AsyncClient(string hostname, int port, bool SendRSAKey = false) : base(hostname, port)
         {
             try
             {
+                MyRSAKey = new RSACryptoServiceProvider(2048);
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
 
                 Stream = this.GetStream();
+                if (SendRSAKey)
+                    this.SendKey();
             }
             catch (Exception)
             {
@@ -63,6 +73,24 @@ namespace ChatGUI.Models
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        /// <summary>
+        /// Used to Send the Clients Public RSA Key
+        /// into the stream
+        /// </summary>
+        public void SendKey()
+        {
+            //Gets the clients current Public Parameters
+            MyRSAKeyInfo = MyRSAKey.ExportParameters(false);
+
+            //Checks if the Stream is ready to Write
+            if (Stream.CanWrite)
+            {
+                //Encodes the RSA Keys Public Parameters as an XML-String
+                byte[] buffer = Encoding.ASCII.GetBytes(MyRSAKey.ToXmlString(false));
+                Stream.Write(buffer, 0, buffer.Length);
             }
         }
 
@@ -104,6 +132,7 @@ namespace ChatGUI.Models
 
                 //Serialize the encrypted message
                 ser.Serialize(Stream, message);
+
             }
             catch (Exception)
             {
@@ -207,6 +236,68 @@ namespace ChatGUI.Models
                 foreach (char b in buffer)
                     message.Append(b);
                 message = message.Remove(message.ToString().IndexOf("</Message>") + "</Message>".Length, "</Message>".Length);
+
+                //Opens a String Reader to have a
+                //stream to deserialize and feeds it
+                //the string builder as a string
+                using (StringReader sr = new StringReader(message.ToString()))
+                {
+                    var m = ser.Deserialize(sr) as Message;
+                    if (m.Mb.Body != null || m.Mb.Body != "")
+                    {
+                        m.Mb.Body = CryptoTool.Decrypt(m.Mb.Body);
+                        foreach (char c in m.Mb.Body)
+                            if (c != ' ')
+                            {
+                                return (m.From.Name + ">>" + m.To.Name + ": " + m.Mb.Body);
+                            }
+                    }
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Used for Recieving XML Streams
+        /// </summary>
+        public string RecieveEncryptedWithRsa()
+        {
+            try
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(Message));
+                StreamReader reader = new StreamReader(Stream);
+
+                //Creates a StringBuilder to build the message
+                StringBuilder message = new StringBuilder();
+
+                //Reads the Datastream into the Buffer
+                //and adds it to the StringBuilder
+                //and clears whitespace
+                char[] buffer = new char[3000];
+                reader.Read(buffer, 0, buffer.Length);
+                foreach (char b in buffer)
+                    message.Append(b);
+                message = message.Remove(message.ToString().IndexOf("</Message>") + "</Message>".Length, "</Message>".Length);
+
+                if (message.ToString().Contains("RSAKeyValue"))
+                {
+                    using (StringReader sr = new StringReader(message.ToString()))
+                    {
+                        var m = ser.Deserialize(sr) as Message;
+                        if (m.Users != null)
+                        {
+                            foreach (User user in m.Users)
+                            {
+                                Users.Add(user);
+                            }
+                        }
+                    }
+                }
 
                 //Opens a String Reader to have a
                 //stream to deserialize and feeds it
