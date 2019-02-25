@@ -12,8 +12,7 @@ namespace ChatGUI
         ChatForm chatForm;
         static AsyncClient client;
         int connectedPort;
-
-        bool clientConnected = false;
+        bool connected = false;
 
         public ChatForm()
         {
@@ -29,8 +28,9 @@ namespace ChatGUI
         {
             try
             {
-                if (!clientConnected)
+                if (!connected)
                 {
+                    connected = true;
                     ChatTextBox.Text += "Trying to Connect...\n";
                     if (ServerPortBox.Value != 88901 && ServerPortBox.Value != 8891)
                         client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
@@ -39,48 +39,48 @@ namespace ChatGUI
                     else
                         client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
 
-                    if (client.Connected)
+                    if (ServerPortBox.Value == 8891)
                     {
-                        clientConnected = true;
-                        ChatTextBox.Text += "Connected to: " + ServerIpBox.Text + "\n";
-                        if (ServerPortBox.Value == 8889)
+                        connectedPort = 8891;
+                        Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.RecieveEncryptedWithRsa()); })
                         {
-                            connectedPort = 8889;
-                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.Recieve()); })
-                            {
-                                IsBackground = true
-                            };
-                            listener.Start();
-                        }
-                        else if (ServerPortBox.Value == 8890)
-                        {
-                            connectedPort = 8890;
-                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.RecieveEncrypted()); })
-                            {
-                                IsBackground = true
-                            };
-                            listener.Start();
-                        }
-                        else if (ServerPortBox.Value == 88901)
-                        {
-                            connectedPort = 88901;
-                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.RecieveDeepEncrypted()); })
-                            {
-                                IsBackground = true
-                            };
-                            listener.Start();
-                        }
-                        else if (ServerPortBox.Value == 8891)
-                        {
-                            connectedPort = 8891;
-                            Thread listener = new Thread(delegate () { while (clientConnected) SetChatBox(client.RecieveEncryptedWithRsa()); })
-                            {
-                                IsBackground = true
-                            };
-                            listener.Start();
-                        }
-                        this.SelectNextControl((Control)sender, true, true, true, true);
+                            IsBackground = true
+                        };
+                        client.Connect();
+                        listener.Start();
                     }
+                    else if (ServerPortBox.Value == 8889)
+                    {
+                        connectedPort = 8889;
+                        Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.Recieve()); })
+                        {
+                            IsBackground = true
+                        };
+                        client.Connect();
+                        listener.Start();
+                    }
+                    else if (ServerPortBox.Value == 8890)
+                    {
+                        connectedPort = 8890;
+                        Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.RecieveEncrypted()); })
+                        {
+                            IsBackground = true
+                        };
+                        client.Connect();
+                        listener.Start();
+                    }
+                    else if (ServerPortBox.Value == 88901)
+                    {
+                        connectedPort = 88901;
+                        Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.RecieveDeepEncrypted()); })
+                        {
+                            IsBackground = true
+                        };
+                        client.Connect();
+                        listener.Start();
+                    }
+                    ChatTextBox.Text += "Connected to: " + ServerIpBox.Text + "\n";
+                    this.SelectNextControl((Control)sender, true, true, true, true);
                 }
                 else
                 {
@@ -97,7 +97,7 @@ namespace ChatGUI
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-            if (clientConnected)
+            if (client.Client.Connected)
             {
                 if (MessageBox.Text != "")
                     if (client != null && connectedPort == 8889)
@@ -152,13 +152,19 @@ namespace ChatGUI
             }
             else if (e.KeyCode == Keys.Right)
             {
+                ((TextBox)sender).SelectionLength = 0;
                 ((TextBox)sender).SelectionStart += 1;
             }
-            else if (e.KeyCode == Keys.Left && MessageBox.SelectionStart > 0)
+            else if (e.KeyCode == Keys.Left)
             {
-                ((TextBox)sender).SelectionStart -= 1;
+                if (((TextBox)sender).SelectionStart > 0)
+                    ((TextBox)sender).SelectionStart -= 1;
+                ((TextBox)sender).SelectionLength = 0;
             }
-            ((TextBox)sender).SelectionLength = 0;
+            else if (e.KeyCode == Keys.OemBackslash || e.KeyCode == Keys.Delete)
+            {
+                ((TextBox)sender).SelectedText = ((TextBox)sender).SelectedText.Remove(0, ((TextBox)sender).SelectedText.Length);
+            }
         }
 
         private void RestartButton_Click(object sender, EventArgs e)
@@ -177,12 +183,18 @@ namespace ChatGUI
             else if (e.KeyCode == Keys.Right)
             {
                 ((TextBox)sender).SelectionStart += 1;
+                ((TextBox)sender).SelectionLength = 0;
             }
-            else if (e.KeyCode == Keys.Left && ((TextBox)sender).SelectionStart > 0)
+            else if (e.KeyCode == Keys.Left)
             {
-                ((TextBox)sender).SelectionStart -= 1;
+                if (((TextBox)sender).SelectionStart > 0)
+                    ((TextBox)sender).SelectionStart -= 1;
+                ((TextBox)sender).SelectionLength = 0;
             }
-            ((TextBox)sender).SelectionLength = 0;
+            else if (e.KeyCode == Keys.OemBackslash || e.KeyCode == Keys.Delete)
+            {
+                ((TextBox)sender).SelectedText = ((TextBox)sender).SelectedText.Remove(0, ((TextBox)sender).SelectedText.Length);
+            }
         }
 
         private void NextTapNumeric_KeyPress(object sender, KeyEventArgs e)
@@ -205,12 +217,14 @@ namespace ChatGUI
         {
             try
             {
-                if (clientConnected)
-                {
-                    clientConnected = false;
-                    client.Close();
-                    ChatTextBox.Text += "Connection Closed.\n";
-                }
+                if (client != null)
+                    if (client.Client != null)
+                        if (client.Client.Connected)
+                        {
+                            connected = false;
+                            client.Close();
+                            ChatTextBox.Text += "Connection Closed.\n";
+                        }
             }
             catch (Exception)
             {
@@ -222,15 +236,11 @@ namespace ChatGUI
         {
             if (client != null)
             {
-
-                ChatTextBox.Text += "client isn't null!";
-                if (client.Users != null)
+                if (client.Users.Count > 0)
                 {
-
-                    ChatTextBox.Text += "Client.Users isn't null";
                     for (int i = 0; i < client.Users.Count; i++)
                     {
-                        ChatTextBox.Text += "User#" + i + ": " + client.Users + "\n";
+                        ChatTextBox.Text += "User#" + i + ": " + client.Users[i].Name + " | IP: " + client.Users[i].Ip + "\n";
                     }
                 }
             }

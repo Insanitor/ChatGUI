@@ -1,7 +1,6 @@
 ﻿using ChatGUI.Models.MessageItems;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -11,8 +10,10 @@ using System.Xml.Serialization;
 
 namespace ChatGUI.Models
 {
-    public class AsyncClient : TcpClient
+    public class AsyncClient
     {
+        public TcpClient Client { get; set; }
+
         protected IPAddress ServerIpAddress { get; set; }
         protected int ServerPort { get; set; }
 
@@ -27,17 +28,16 @@ namespace ChatGUI.Models
         /// </summary>
         /// <param name="serverIp">The IP Address of the Server you wish to connect to</param>
         /// <param name="serverPort">The Port Number of the Server you wish to connect to</param>
-        public AsyncClient(string hostname, int port, bool SendRSAKey = false) : base(hostname, port)
+        public AsyncClient(string hostname, int port, bool SendRSAKey = false)
         {
             try
             {
+                Users = new List<User>();
                 MyRSAKey = new RSACryptoServiceProvider(2048);
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
 
-                Stream = this.GetStream();
-                if (SendRSAKey)
-                    this.SendKey();
+                    
             }
             catch (Exception)
             {
@@ -45,21 +45,6 @@ namespace ChatGUI.Models
             }
         }
 
-        /// <summary>
-        /// Close medthod for Async Client.
-        /// </summary>
-        public new void Close()
-        {
-            try
-            {
-                Client.Close();
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
 
         /// <summary>
         /// Deconstructor that makes sure the connection gets closed
@@ -68,10 +53,37 @@ namespace ChatGUI.Models
         {
             try
             {
-                Client.Close();
+                if (Client != null)
+                    if (Client.Client != null)
+                        if (Client.Client.Connected)
+                            Client.Client.Close();
             }
             catch (Exception)
             {
+                throw;
+            }
+        }
+
+        public void Connect()
+        {
+            Client = new TcpClient(ServerIpAddress.ToString(), ServerPort);
+            Stream = Client.GetStream();
+            SendKey();
+        }
+
+        /// <summary>
+        /// Close medthod for Async Client.
+        /// </summary>
+        public void Close()
+        {
+            try
+            {
+                Client.Client.Close();
+                Users.Clear();
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
@@ -291,10 +303,7 @@ namespace ChatGUI.Models
                         var m = ser.Deserialize(sr) as Message;
                         if (m.Users != null)
                         {
-                            foreach (User user in m.Users)
-                            {
-                                Users.Add(user);
-                            }
+                            m.Users.ForEach(CheckUsersIp);
                         }
                     }
                 }
@@ -322,6 +331,16 @@ namespace ChatGUI.Models
                 return null;
                 throw;
             }
+        }
+
+        public void CheckUsersIp(User u)
+        {
+            bool isNew = true;
+            for (int i = 0; i < Users.Count; i++)
+                if (u.Ip == Users[i].Ip)
+                    isNew = false;
+            if (isNew == true)
+                Users.Add(u);
         }
 
         /// <summary>

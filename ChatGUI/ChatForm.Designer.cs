@@ -166,7 +166,7 @@
             this.FromIpBox.Name = "FromIpBox";
             this.FromIpBox.Size = new System.Drawing.Size(100, 22);
             this.FromIpBox.TabIndex = 7;
-            this.FromIpBox.Text = "192.168.1.7";
+            this.FromIpBox.Text = "172.0.0.10";
             this.FromIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToIpBox
@@ -176,7 +176,7 @@
             this.ToIpBox.Name = "ToIpBox";
             this.ToIpBox.Size = new System.Drawing.Size(100, 22);
             this.ToIpBox.TabIndex = 5;
-            this.ToIpBox.Text = "192.168.1.11";
+            this.ToIpBox.Text = "172.0.0.12";
             this.ToIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // FromNameBox
@@ -195,7 +195,7 @@
             this.ServerIpBox.Name = "ServerIpBox";
             this.ServerIpBox.Size = new System.Drawing.Size(100, 20);
             this.ServerIpBox.TabIndex = 1;
-            this.ServerIpBox.Text = "192.168.1.2";
+            this.ServerIpBox.Text = "172.0.0.10";
             this.ServerIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToNameBox
@@ -265,11 +265,11 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(64, 307);
+            this.button1.Location = new System.Drawing.Point(142, 228);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 24;
-            this.button1.Text = "TestButton";
+            this.button1.Text = "Print Users";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
