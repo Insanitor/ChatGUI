@@ -275,7 +275,8 @@ namespace ChatGUI.Models
         }
 
         /// <summary>
-        /// Used for Recieving XML Streams
+        /// Used for Recieving RSAKeyValues 
+        /// and XML Streams
         /// </summary>
         public string RecieveEncryptedWithRsa()
         {
