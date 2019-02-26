@@ -32,15 +32,10 @@ namespace ChatGUI
                 {
                     connected = true;
                     ChatTextBox.Text += "Trying to Connect...\n";
-                    if (ServerPortBox.Value != 88901 && ServerPortBox.Value != 8891)
-                        client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()));
-                    else if (ServerPortBox.Value == 8891)
-                        client = new AsyncClient(ServerIpBox.Text, int.Parse(ServerPortBox.Value.ToString()), true);
-                    else
-                        client = new AsyncClient(ServerIpBox.Text, int.Parse("8890"));
 
                     if (ServerPortBox.Value == 8891)
                     {
+                        client = new AsyncClient(ServerIpBox.Text, 8891, true);
                         connectedPort = 8891;
                         Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.RecieveEncryptedWithRsa()); })
                         {
@@ -51,6 +46,7 @@ namespace ChatGUI
                     }
                     else if (ServerPortBox.Value == 8889)
                     {
+                        client = new AsyncClient(ServerIpBox.Text, 8889);
                         connectedPort = 8889;
                         Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.Recieve()); })
                         {
@@ -61,6 +57,7 @@ namespace ChatGUI
                     }
                     else if (ServerPortBox.Value == 8890)
                     {
+                        client = new AsyncClient(ServerIpBox.Text, 8890);
                         connectedPort = 8890;
                         Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.RecieveEncrypted()); })
                         {
@@ -71,6 +68,7 @@ namespace ChatGUI
                     }
                     else if (ServerPortBox.Value == 88901)
                     {
+                        client = new AsyncClient(ServerIpBox.Text, 8890);
                         connectedPort = 88901;
                         Thread listener = new Thread(delegate () { while (client.Client.Connected) SetChatBox(client.RecieveDeepEncrypted()); })
                         {
