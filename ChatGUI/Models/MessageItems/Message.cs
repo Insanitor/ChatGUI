@@ -9,6 +9,8 @@ namespace ChatGUI.Models.MessageItems
         public Mb Mb { get; set; }
         public List<User> Users { get; set; }
         public StatusMessage StatusMessage { get; set; }
+        public string Iv { get; set; }
+        public string Key { get; set; }
 
         public Message()
         {
@@ -26,6 +28,15 @@ namespace ChatGUI.Models.MessageItems
             From = new From(fromName, fromIp);
             Mb = new Mb(messageBody);
             Users = new List<User>();
+        }
+
+        public Message(string toName, string toIp, string fromName, string fromIp, string messageBody, string iv)
+        {
+            To = new To(toName, toIp);
+            From = new From(fromName, fromIp);
+            Mb = new Mb(messageBody);
+            Users = new List<User>();
+            Iv = iv;
         }
 
         public Message(string toName, string toIp,string fromName,string fromIp,string messageBody, string statusMessage,string statusCode)

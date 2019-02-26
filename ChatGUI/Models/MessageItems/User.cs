@@ -16,5 +16,6 @@
 
         public string Name { get; set; }
         public string Ip { get; set; }
+        public RSAKeyValue RSAKeyValue { get; set; }
     }
 }

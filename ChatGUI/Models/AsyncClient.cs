@@ -1,52 +1,50 @@
 ﻿using ChatGUI.Models.MessageItems;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
 
 namespace ChatGUI.Models
 {
-    public class AsyncClient : TcpClient
+    public class AsyncClient
     {
+        public TcpClient Client { get; set; }
+
         protected IPAddress ServerIpAddress { get; set; }
         protected int ServerPort { get; set; }
 
         protected NetworkStream Stream { get; set; }
+
+        public RSACryptoServiceProvider MyRSAKey { get; set; }
+        public RSAParameters MyRSAKeyInfo { get; set; }
+
+        public List<User> Users { get; set; }
+
+        static bool SendRSAKey = false;
 
         /// <summary>
         /// Constructor for an Async Client
         /// </summary>
         /// <param name="serverIp">The IP Address of the Server you wish to connect to</param>
         /// <param name="serverPort">The Port Number of the Server you wish to connect to</param>
-        public AsyncClient(string hostname, int port) : base(hostname, port)
+        public AsyncClient(string hostname, int port, bool sendRSAKey = false)
         {
             try
             {
+                Users = new List<User>();
+                MyRSAKey = new RSACryptoServiceProvider(2048);
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
+                SendRSAKey = sendRSAKey;
 
-                Stream = this.GetStream();
+
             }
             catch (Exception)
             {
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Close medthod for Async Client.
-        /// </summary>
-        public new void Close()
-        {
-            try
-            {
-                Client.Close();
-            }
-            catch (Exception)
-            {
-
                 throw;
             }
         }
@@ -58,11 +56,57 @@ namespace ChatGUI.Models
         {
             try
             {
-                Client.Close();
+                if (Client != null)
+                    if (Client.Client != null)
+                        if (Client.Client.Connected)
+                            Client.Client.Close();
             }
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public void Connect()
+        {
+            Client = new TcpClient(ServerIpAddress.ToString(), ServerPort);
+            Stream = Client.GetStream();
+            if (SendRSAKey)
+                SendKey();
+        }
+
+        /// <summary>
+        /// Close medthod for Async Client.
+        /// </summary>
+        public void Close()
+        {
+            try
+            {
+                Client.Client.Close();
+                Users.Clear();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Used to Send the Clients Public RSA Key
+        /// into the stream
+        /// </summary>
+        public void SendKey()
+        {
+            //Gets the clients current Public Parameters
+            MyRSAKeyInfo = MyRSAKey.ExportParameters(false);
+
+            //Checks if the Stream is ready to Write
+            if (Stream.CanWrite)
+            {
+                //Encodes the RSA Keys Public Parameters as an XML-String
+                byte[] buffer = Encoding.ASCII.GetBytes(MyRSAKey.ToXmlString(false));
+                Stream.Write(buffer, 0, buffer.Length);
             }
         }
 
@@ -104,6 +148,7 @@ namespace ChatGUI.Models
 
                 //Serialize the encrypted message
                 ser.Serialize(Stream, message);
+
             }
             catch (Exception)
             {
@@ -179,10 +224,10 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
-                throw;
+                throw e;
             }
         }
 
@@ -226,11 +271,81 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
+            catch (Exception e)
+            {
+                return null;
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Used for Recieving RSAKeyValues 
+        /// and XML Streams
+        /// </summary>
+        public string RecieveEncryptedWithRsa()
+        {
+            try
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(Message));
+                StreamReader reader = new StreamReader(Stream);
+
+                //Creates a StringBuilder to build the message
+                StringBuilder message = new StringBuilder();
+
+                //Reads the Datastream into the Buffer
+                //and adds it to the StringBuilder
+                //and clears whitespace
+                char[] buffer = new char[3000];
+                reader.Read(buffer, 0, buffer.Length);
+                foreach (char b in buffer)
+                    message.Append(b);
+                message = message.Remove(message.ToString().IndexOf("</Message>") + "</Message>".Length, "</Message>".Length);
+
+                if (message.ToString().Contains("RSAKeyValue"))
+                {
+                    using (StringReader sr = new StringReader(message.ToString()))
+                    {
+                        var m = ser.Deserialize(sr) as Message;
+                        if (m.Users != null)
+                        {
+                            m.Users.ForEach(CheckUsersIp);
+                        }
+                    }
+                }
+
+                //Opens a String Reader to have a
+                //stream to deserialize and feeds it
+                //the string builder as a string
+                using (StringReader sr = new StringReader(message.ToString()))
+                {
+                    var m = ser.Deserialize(sr) as Message;
+                    if (m.Mb.Body != null || m.Mb.Body != "")
+                    {
+                        m.Mb.Body = CryptoTool.Decrypt(m.Mb.Body);
+                        foreach (char c in m.Mb.Body)
+                            if (c != ' ')
+                            {
+                                return (m.From.Name + ">>" + m.To.Name + ": " + m.Mb.Body);
+                            }
+                    }
+                }
+                return null;
+            }
             catch (Exception)
             {
                 return null;
                 throw;
             }
+        }
+
+        public void CheckUsersIp(User u)
+        {
+            bool isNew = true;
+            for (int i = 0; i < Users.Count; i++)
+                if (u.Ip == Users[i].Ip)
+                    isNew = false;
+            if (isNew == true)
+                Users.Add(u);
         }
 
         /// <summary>
