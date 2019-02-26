@@ -1,4 +1,5 @@
 ﻿using ChatGUI.Models;
+using ChatGUI.Models.MessageItems;
 using System;
 using System.Net.Sockets;
 using System.Threading;
@@ -116,7 +117,20 @@ namespace ChatGUI
                     else if (client != null && connectedPort == 8891)
                     {
                         ChatTextBox.Text += "You Said: " + MessageBox.Text + "\n";
-                        client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text));
+                        User recipient = null;
+                        foreach (User u in client.Users)
+                        {
+                            if (u.Ip == ToIpBox.Text)
+                            {
+                                recipient = u;
+                                ChatTextBox.Text += "Found Someone!\n";
+                                break;
+                            }
+                        }
+                        if (recipient != null)
+                            client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text), recipient);
+                        else
+                            ChatTextBox.Text += "Found Nothing... WAAAH :'(!\n";
                     }
             }
             else

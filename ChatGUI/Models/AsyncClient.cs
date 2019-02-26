@@ -20,7 +20,16 @@ namespace ChatGUI.Models
         protected NetworkStream Stream { get; set; }
 
         protected RSACryptoServiceProvider MyRSAKey { get; set; }
-        protected RSAParameters MyRSAKeyInfo { get; set; } 
+        private RSAParameters myRSAKeyInfo;
+
+        public RSAParameters MyRSAKeyInfo
+        {
+            get { return myRSAKeyInfo; }
+            set { myRSAKeyInfo = value; }
+        }
+
+        protected RSAParameters myRSPPKeyInfo;
+        //protected RSAParameters MyRSAKeyInfo { get; set; }
 
         public List<User> Users { get; protected set; }
 
@@ -37,6 +46,7 @@ namespace ChatGUI.Models
             {
                 Users = new List<User>();
                 MyRSAKey = new RSACryptoServiceProvider(2048);
+                MyRSAKeyInfo = new RSAParameters();
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
                 SendRSAKey = sendRSAKey;
@@ -187,6 +197,33 @@ namespace ChatGUI.Models
             }
         }
 
+        public void SendEncryptedWithRSA(Message message, User u)
+        {
+            try
+            {
+                StreamWriter writer = new StreamWriter(Stream);
+                XmlSerializer ser = new XmlSerializer(typeof(Message));
+                RSAParameters UserKeyInfo = new RSAParameters();
+
+                //Encrypt the Message as Byte Arrays
+                UserKeyInfo.Modulus = Encoding.UTF8.GetBytes(u.RSAKeyValue.Modulus);
+                UserKeyInfo.Exponent = Encoding.UTF8.GetBytes(u.RSAKeyValue.Exponent);
+
+                byte[] bodyData = CryptoTool.RSAEncrypt(message.Mb.Body, UserKeyInfo, false);
+
+                //Converts the Byte Array into an Encrypted String
+                message.Mb.Body = Convert.ToBase64String(bodyData);
+
+                //Serialize the encrypted message
+                ser.Serialize(Stream, message);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         /// <summary>
         /// Used for Recieving XML Streams
         /// </summary>
@@ -321,7 +358,7 @@ namespace ChatGUI.Models
                     var m = ser.Deserialize(sr) as Message;
                     if (m.Mb.Body != null || m.Mb.Body != "")
                     {
-                        m.Mb.Body = CryptoTool.Decrypt(m.Mb.Body);
+                        m.Mb.Body = CryptoTool.RSADecrypt(m.Mb.Body, MyRSAKey.ExportParameters(true), false);
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {

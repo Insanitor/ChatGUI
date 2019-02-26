@@ -252,5 +252,51 @@ namespace ChatGUI.Models
                 throw;
             }
         }
+
+        public static byte[] RSAEncrypt(string dataToEncrypt, RSAParameters rsaKeyInfo, bool useOAEPPadding)
+        {
+            try
+            {
+                byte[] dataAsBytes = Encoding.UTF8.GetBytes(dataToEncrypt);
+                byte[] encryptedData;
+
+                using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+                {
+                    rsa.ImportParameters(rsaKeyInfo);
+
+                    encryptedData = rsa.Encrypt(dataAsBytes, useOAEPPadding);
+                }
+                return encryptedData;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }
+
+        public static string RSADecrypt(string dataToDecrypt, RSAParameters rsaKeyInfo, bool useOAEPPadding)
+        {
+            try
+            {
+                byte[] dataAsBytes = Encoding.UTF8.GetBytes(dataToDecrypt);
+                byte[] decryptedData;
+                string decryptedDataAsString;
+
+                using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+                {
+                    rsa.ImportParameters(rsaKeyInfo);
+
+                    decryptedData = rsa.Decrypt(dataAsBytes, useOAEPPadding);
+                }
+                decryptedDataAsString = Encoding.UTF8.GetString(decryptedData);
+                return decryptedDataAsString;
+            }
+            catch (Exception)
+            {
+                return null;
+                throw;
+            }
+        }
     }
 }
