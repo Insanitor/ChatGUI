@@ -12,17 +12,17 @@ namespace ChatGUI.Models
 {
     public class AsyncClient
     {
-        public TcpClient Client { get; set; }
+        public TcpClient Client { get; protected set; }
 
         protected IPAddress ServerIpAddress { get; set; }
         protected int ServerPort { get; set; }
 
         protected NetworkStream Stream { get; set; }
 
-        public RSACryptoServiceProvider MyRSAKey { get; set; }
-        public RSAParameters MyRSAKeyInfo { get; set; }
+        protected RSACryptoServiceProvider MyRSAKey { get; set; }
+        protected RSAParameters MyRSAKeyInfo { get; set; } 
 
-        public List<User> Users { get; set; }
+        public List<User> Users { get; protected set; }
 
         /// <summary>
         /// Constructor for an Async Client
@@ -37,8 +37,6 @@ namespace ChatGUI.Models
                 MyRSAKey = new RSACryptoServiceProvider(2048);
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
-
-                    
             }
             catch (Exception)
             {
