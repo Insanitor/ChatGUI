@@ -128,7 +128,7 @@ namespace ChatGUI
                             }
                         }
                         if (recipient != null)
-                            client.SendEncrypted(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text), recipient);
+                            client.SendEncryptedWithRSA(new Models.MessageItems.Message(ToNameBox.Text, ToIpBox.Text, FromNameBox.Text, FromIpBox.Text, MessageBox.Text), recipient);
                         else
                             ChatTextBox.Text += "Found Nothing... WAAAH :'(!\n";
                     }

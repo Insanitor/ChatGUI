@@ -257,8 +257,9 @@ namespace ChatGUI.Models
         {
             try
             {
-                byte[] dataAsBytes = Encoding.UTF8.GetBytes(dataToEncrypt);
-                byte[] encryptedData;
+                UnicodeEncoding byteConverter = new UnicodeEncoding();
+                byte[] dataAsBytes = byteConverter.GetBytes(dataToEncrypt);
+                byte[] encryptedData = new byte[131];
 
                 using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
                 {
@@ -279,7 +280,8 @@ namespace ChatGUI.Models
         {
             try
             {
-                byte[] dataAsBytes = Encoding.UTF8.GetBytes(dataToDecrypt);
+                UnicodeEncoding byteConverter = new UnicodeEncoding();
+                byte[] dataAsBytes = byteConverter.GetBytes(dataToDecrypt);
                 byte[] decryptedData;
                 string decryptedDataAsString;
 
@@ -292,11 +294,16 @@ namespace ChatGUI.Models
                 decryptedDataAsString = Encoding.UTF8.GetString(decryptedData);
                 return decryptedDataAsString;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                return "Exception: " + ex;
                 throw;
             }
         }
+    }
+
+    public class DecryptException : Exception
+    {
+
     }
 }

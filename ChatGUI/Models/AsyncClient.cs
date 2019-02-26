@@ -45,7 +45,7 @@ namespace ChatGUI.Models
             try
             {
                 Users = new List<User>();
-                MyRSAKey = new RSACryptoServiceProvider(2048);
+                MyRSAKey = new RSACryptoServiceProvider(1048);
                 MyRSAKeyInfo = new RSAParameters();
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
@@ -356,9 +356,10 @@ namespace ChatGUI.Models
                 using (StringReader sr = new StringReader(message.ToString()))
                 {
                     var m = ser.Deserialize(sr) as Message;
-                    if (m.Mb.Body != null || m.Mb.Body != "")
+                    if (!string.IsNullOrEmpty(m.Mb.Body))
                     {
                         m.Mb.Body = CryptoTool.RSADecrypt(m.Mb.Body, MyRSAKey.ExportParameters(true), false);
+                        return m.Mb.Body;
                         foreach (char c in m.Mb.Body)
                             if (c != ' ')
                             {
