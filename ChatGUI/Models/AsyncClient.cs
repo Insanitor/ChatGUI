@@ -24,12 +24,14 @@ namespace ChatGUI.Models
 
         public List<User> Users { get; protected set; }
 
+        static bool SendRSAKey = false;
+
         /// <summary>
         /// Constructor for an Async Client
         /// </summary>
         /// <param name="serverIp">The IP Address of the Server you wish to connect to</param>
         /// <param name="serverPort">The Port Number of the Server you wish to connect to</param>
-        public AsyncClient(string hostname, int port, bool SendRSAKey = false)
+        public AsyncClient(string hostname, int port, bool sendRSAKey = false)
         {
             try
             {
@@ -37,6 +39,9 @@ namespace ChatGUI.Models
                 MyRSAKey = new RSACryptoServiceProvider(2048);
                 ServerIpAddress = IPAddress.Parse(hostname);
                 ServerPort = port;
+                SendRSAKey = sendRSAKey;
+
+
             }
             catch (Exception)
             {
@@ -66,7 +71,8 @@ namespace ChatGUI.Models
         {
             Client = new TcpClient(ServerIpAddress.ToString(), ServerPort);
             Stream = Client.GetStream();
-            SendKey();
+            if (SendRSAKey)
+                SendKey();
         }
 
         /// <summary>
@@ -218,10 +224,10 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
-                throw;
+                throw e;
             }
         }
 
@@ -265,10 +271,10 @@ namespace ChatGUI.Models
                 }
                 return null;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
-                throw;
+                throw e;
             }
         }
 
