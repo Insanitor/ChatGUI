@@ -166,7 +166,7 @@
             this.FromIpBox.Name = "FromIpBox";
             this.FromIpBox.Size = new System.Drawing.Size(100, 22);
             this.FromIpBox.TabIndex = 7;
-            this.FromIpBox.Text = "172.0.0.10";
+            this.FromIpBox.Text = "192.168.1.2";
             this.FromIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToIpBox
@@ -176,7 +176,7 @@
             this.ToIpBox.Name = "ToIpBox";
             this.ToIpBox.Size = new System.Drawing.Size(100, 22);
             this.ToIpBox.TabIndex = 5;
-            this.ToIpBox.Text = "172.0.0.12";
+            this.ToIpBox.Text = "192.168.1.2";
             this.ToIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // FromNameBox
@@ -195,7 +195,7 @@
             this.ServerIpBox.Name = "ServerIpBox";
             this.ServerIpBox.Size = new System.Drawing.Size(100, 20);
             this.ServerIpBox.TabIndex = 1;
-            this.ServerIpBox.Text = "172.0.0.10";
+            this.ServerIpBox.Text = "192.168.1.2";
             this.ServerIpBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.NextTap_KeyPress);
             // 
             // ToNameBox
